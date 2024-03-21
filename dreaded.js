@@ -606,25 +606,25 @@ client.sendMessage(m.chat, {
           // Group Commands
 break;
 
-		      case 'apk': case 'app': case 'apkdl': {
-  if (!text) throw `I need an apk name for download`;
+case 'apk': case 'app': case 'apkdl': {
+ if (!text) throw `I need an apk name for download`;
 
-  const getRandomName = (ext) => `${Math.floor(Math.random() * 10000)}${ext}`;
-  const randomName = getRandomName(".apk");
-  const filePath = `./${randomName}`;
+ const getRandomName = (ext) => `${Math.floor(Math.random() * 10000)}${ext}`;
+ const randomName = getRandomName(".apk");
+ const filePath = `./${randomName}`;
 
-  let searchResults = await search(text);
+ let searchResults = await search(text);
 
-  if (!searchResults.length) return m.reply("App not found!");
+ if (!searchResults.length) return m.reply("App not found!");
 
-  const data = await download(searchResults[0].id);
+ const data = await download(searchResults[0].id);
 
-  // No need to check file size, proceed with download
+ // No need to check file size, proceed with download
 
-  const url = data.dllink;
-  const iconUrl = data.icon;
+ const url = data.dllink;
+ const iconUrl = data.icon;
 
-  let info = `╭───〈 *${data.name}* 〉───◆
+ let info = `╭───〈 *${data.name}* 〉───◆
 ▯╭─────────────···▸
 ┴│▸
 ▮➣ *App Name:* ${data.name}
@@ -635,71 +635,70 @@ break;
 ┃✵╰──────────────
 ╰━━━━━━━━━━━━━━━┈⊷`;
 
-  // Download icon
-  const iconPath = `./${getRandomName(".png")}`;
-  await axios.get(iconUrl, { responseType: 'stream' })
-    .then(response => {
-      const writer = fs.createWriteStream(iconPath);
-      response.data.pipe(writer);
+ // Download icon
+ const iconPath = `./${getRandomName(".png")}`;
+ await axios.get(iconUrl, { responseType: 'stream' })
+ .then(response => {
+ const writer = fs.createWriteStream(iconPath);
+ response.data.pipe(writer);
 
-      return new Promise((resolve, reject) => {
-        writer.on('finish', resolve);
-        writer.on('error', reject);
-      });
-    });
+ return new Promise((resolve, reject) => {
+ writer.on('finish', resolve);
+ writer.on('error', reject);
+ });
+ });
 
-  const iconMessage = {
-    image: fs.readFileSync(iconPath),
-    caption: info
-  };
+ const iconMessage = {
+ image: fs.readFileSync(iconPath),
+ caption: info
+ };
 
-  // Send icon with info
-  await client.sendMessage(m.chat, iconMessage, { quoted: m });
+ // Send icon with info
+ await client.sendMessage(m.chat, iconMessage, { quoted: fcontact, caption: '𝐆𝐄𝐍𝐄𝐑𝐀𝐓𝐄𝐃 𝐁𝐘 𝐃𝐑𝐄𝐗 𝐁𝐎𝐓' });
 
-  // Delete temporary icon file
-  fs.unlink(iconPath, (err) => {
-    if (err) {
-      console.error('Error deleting icon file:', err);
-    } else {
-      console.log('Icon file deleted successfully');
-    }
-  });
+ // Delete temporary icon file
+ fs.unlink(iconPath, (err) => {
+ if (err) {
+ console.error('Error deleting icon file:', err);
+ } else {
+ console.log('Icon file deleted successfully');
+ }
+ });
 
-  // Download and send APK
-  axios.get(url, { responseType: 'stream' })
-    .then(response => {
-      const writer = fs.createWriteStream(filePath);
-      response.data.pipe(writer);
+ // Download and send APK
+ axios.get(url, { responseType: 'stream' })
+ .then(response => {
+ const writer = fs.createWriteStream(filePath);
+ response.data.pipe(writer);
 
-      return new Promise((resolve, reject) => {
-        writer.on('finish', resolve);
-        writer.on('error', reject);
-      });
-    }).then(() => {
-      const apkMessage = {
-        document: fs.readFileSync(filePath),
-        mimetype: 'application/vnd.android.package-archive',
-        fileName: `${data.name}.apk`
-      };
+ return new Promise((resolve, reject) => {
+ writer.on('finish', resolve);
+ writer.on('error', reject);
+ });
+ }).then(() => {
+ const apkMessage = {
+ document: fs.readFileSync(filePath),
+ mimetype: 'application/vnd.android.package-archive',
+ fileName: `${data.name}.apk`
+ };
 
-      client.sendMessage(m.chat, apkMessage, { quoted: m });
+ client.sendMessage(m.chat, apkMessage, { quoted: fcontact, caption: '𝐆𝐄𝐍𝐄𝐑𝐀𝐓𝐄𝐃 𝐁𝐘 𝐃𝐑𝐄𝐗 𝐁𝐎𝐓' });
 
-      // Delete temporary APK file
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error('Error deleting APK file:', err);
-        } else {
-          console.log('APK file deleted successfully');
-        }
-      });
-    }).catch(error => {
-      fs.unlink(filePath);
-      return m.reply('*Apk not Found, Sorry, try with apk2 cmd*');
-    });
+ // Delete temporary APK file
+ fs.unlink(filePath, (err) => {
+ if (err) {
+ console.error('Error deleting APK file:', err);
+ } else {
+ console.log('APK file deleted successfully');
+ }
+ });
+ }).catch(error => {
+ fs.unlink(filePath);
+ return m.reply('*Apk not Found, Sorry, try with apk2 cmd*');
+ });
 
-  break;
-	      }
-
+ break;
+	 }
 		      case 'pin': {
   await doReact("🕘");
   const startTime = new Date();
