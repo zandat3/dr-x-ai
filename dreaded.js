@@ -2,7 +2,7 @@
 const moment = require('moment-timezone')
 const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = require("@whiskeysockets/baileys");
 const fs = require("fs");
-const DB = require('./lib/scraper')
+const db = require('./lib/scraper')
 const util = require("util");
 global.axios = require('axios').default
 const chalk = require("chalk");
