@@ -261,7 +261,20 @@ let { key } = await client.sendMessage(from, {text: '𝐈 𝐚𝐦 𝐃𝐫𝐞�
 for (let i = 0; i < lod.length; i++) {
 await client.sendMessage(from, {text: lod[i], edit: key });
 }
-}	 
+}
+
+	  async function doReact(emoji) {
+      let react = {
+        react: {
+          text: emoji,
+          key: m.key,
+        },
+      };
+      await client.sendMessage(m.chat, react);
+    }
+
+
+	  
 
 	   async function loadings () {
 var lod = [
