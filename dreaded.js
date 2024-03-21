@@ -657,6 +657,16 @@ case 'play2': {
 }
 break;
 
+		      case 'readmore': {
+    if (!text) return m.reply( 'give me text');
+
+    const continuationMessage = `
+    ${readmore}${text}`;
+
+    m.reply(continuationMessage);
+    break;
+		      }
+
 	      case 'hd': case 'hdr': case 'remini': {
 			if (!quoted) return reply(`Where is the picture?`)
 			if (!/image/.test(mime)) return reply(`Send/Reply Photos With Captions ${prefix + command}`)
