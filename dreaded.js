@@ -609,6 +609,14 @@ client.sendMessage(m.chat, {
           // Group Commands
 break;
 
+		      case 'q': case 'quoted': {
+  if (!m.quoted) return m.reply('Reply to the message!');
+  let wokwol = await client.serializeM(await m.getQuotedObj());
+  if (!wokwol.quoted) return m.reply('The replied message does not contain a reply');
+  await wokwol.quoted.copyNForward(m.chat, true);
+}
+break;
+
 		      case'tagadmins': case 'admins': {
  if (!text) return m.reply(`*give me message for admin*`)
 let teks = `*「 Tag Admins 」*
