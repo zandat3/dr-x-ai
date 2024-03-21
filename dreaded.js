@@ -607,7 +607,7 @@ break;
 		      case 'pin': {
   await doReact("🕘");
   const startTime = new Date();
-  const pingMsg = await gss.sendMessage(m.chat, { text: '*cheking...*' });
+  const pingMsg = await client.sendMessage(m.chat, { text: '*cheking...*' });
 
  await client.relayMessage(m.chat, {
       protocolMessage: {
