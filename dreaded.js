@@ -606,6 +606,29 @@ client.sendMessage(m.chat, {
           // Group Commands
 break;
 
+		      case'tagadmins': case 'admins': {
+ if (!text) return m.reply(`*give me message for admin*`)
+let teks = `*「 Tag Admins 」*
+
+*Message : ${text}*\n\n`
+for (let mem of groupAdmins) {
+teks += ` @${mem.split('@')[0]}\n`
+}
+gss.sendMessage(m.chat, { text: teks, mentions: groupAdmins}, { quoted: fcontact})
+}
+break;
+
+		      case 'listgc': {
+  let anu = await store.chats.all().filter(v => v.id.endsWith('@g.us')).map(v => v.id);
+  let teks = `⬣ *LIST GROUP CHAT*\n\nTotal Groups: ${anu.length} Groups\n\n`;
+  for (let i of anu) {
+    let metadata = await gss.groupMetadata(i);
+    teks += `⬡ *Name:* ${metadata.subject}\n⬡ *Owner:* ${metadata.owner !== undefined ? '@' + metadata.owner.split`@`[0] : 'Unknown'}\n⬡ *ID:* ${metadata.id}\n⬡ *Created:* ${moment(metadata.creation * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}\n⬡ *Members:* ${metadata.participants.length}\n\n────────────────────────\n\n`;
+  }
+  client.sendTextWithMentions(m.chat, teks, m);
+}
+break;
+
 		      case 'tempmail': {
         try {
             const apiEndpoint = 'https://tempmail.apinepdev.workers.dev/api/gen';
