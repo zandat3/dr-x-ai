@@ -591,6 +591,24 @@ client.sendMessage(m.chat, {
           // Group Commands
 break;
 
+		      case 'pin': {
+  await doReact("🕘");
+  const startTime = new Date();
+  const pingMsg = await gss.sendMessage(m.chat, { text: '*cheking...*' });
+
+ await client.relayMessage(m.chat, {
+      protocolMessage: {
+        key: pingMsg.key,
+        type: 14,
+        editedMessage: {
+          conversation: `*Pong:* ${new Date() - startTime} ms`
+        }
+      }
+    }, {});
+     await doReact("📍");
+  } 
+break;
+
 case "p": case "t": {
 	await loadings ()
 for (let i = 0; i < 5; i++) {
@@ -659,7 +677,7 @@ case 'play2': {
 }
 break;
 
-		      case 'snapshotfull': case 'ssf':
+	      case 'ssfull': case 'snapshotfull': case 'ssf':
   try {
     if (!text) return m.reply("```Uhh Please, Give me Url!```");
     let urll = `https://image.thum.io/get/fullpage/=${text.match(/\bhttps?:\/\/\S+/gi)[0]}`
