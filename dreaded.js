@@ -1,7 +1,7 @@
 
 
 const moment = require('moment-timezone')
-const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = require("@whiskeysockets/baileys");
+const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getAggregateVotesInPollMessage, getContentType } = require("@whiskeysockets/baileys");
 const fs = require("fs");
 const util = require("util");
 const db = global.db;
@@ -11,7 +11,6 @@ const speed = require("performance-now");
 const Genius = require("genius-lyrics"); 
 const yts = require("yt-search");
 const advice = require("badadvice");
-const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser,getAggregateVotesInPollMessage, getContentType } = require('@whiskeysockets/baileys')
 const search = require('aptoide-scraper').search;
 const download = require('aptoide-scraper').download;
 const {c, cpp, node, python, java} = require('compile-run');
