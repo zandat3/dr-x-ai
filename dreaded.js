@@ -633,7 +633,8 @@ break;
 
 case'tagadmins': case 'admins': {
 if (!Owner) throw NotOwner; 
- if (!text) return m.reply(`*give me message for admin*`)
+if (!m.isGroup) throw group; 
+if (!text) return m.reply(`*give me message for admin*`)
 let teks = `*「 Tag Admins 」*
 
 *Message : ${text}*\n\n`
