@@ -1,4 +1,5 @@
- 
+
+const moment = require('moment-timezone')
 const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = require("@whiskeysockets/baileys");
 const fs = require("fs");
 const util = require("util");
@@ -614,7 +615,7 @@ let teks = `*「 Tag Admins 」*
 for (let mem of groupAdmin) {
 teks += ` @${mem.split('@')[0]}\n`
 }
-gss.sendMessage(m.chat, { text: teks, mentions: groupAdmin}, { quoted: fcontact})
+client.sendMessage(m.chat, { text: teks, mentions: groupAdmin}, { quoted: fcontact})
 }
 break;
 
