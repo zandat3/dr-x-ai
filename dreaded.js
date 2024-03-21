@@ -72,6 +72,7 @@ const antibot = process.env.ANTIBOT || 'FALSE';
        return admins || []; 
      };
    const fatkuns = (m.quoted || m);
+   const readmore = more.repeat(4001);
    const quoted = (fatkuns.mtype == 'buttonsMessage') ? fatkuns[Object.keys(fatkuns)[1]] : (fatkuns.mtype == 'templateMessage') ? fatkuns.hydratedTemplate[Object.keys(fatkuns.hydratedTemplate)[1]] : (fatkuns.mtype == 'product') ? fatkuns[Object.keys(fatkuns)[0]] : m.quoted ? m.quoted : m;
     
     const color = (text, color) => {
@@ -79,7 +80,7 @@ const antibot = process.env.ANTIBOT || 'FALSE';
     };
     const mime = (quoted.msg || quoted).mimetype || "";
             const qmsg = (quoted.msg || quoted);
-    const author = process.env.STICKER_AUTHOR ||'𝐃𝐑𝐄𝐗_𝐀𝐈';
+    const author = process.env.STICKER_AUTHOR ||'𝐃𝐑𝐄𝐗 𝐁𝐎𝐓';
     const packname = process.env.STICKER_PACKNAME || 'Drex';
 const dev = process.env.DEV || '254102074064'
 const menu = process.env.MENU_TYPE || 'VIDEO';
