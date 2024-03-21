@@ -628,8 +628,7 @@ break;
     let metadata = await client.groupMetadata(i);
     teks += `⬡ *Name:* ${metadata.subject}\n⬡ *Owner:* ${metadata.owner !== undefined ? '@' + metadata.owner.split`@`[0] : 'Unknown'}\n⬡ *ID:* ${metadata.id}\n⬡ *Created:* ${moment(metadata.creation * 1000).tz('Africa/Nairobi').format('DD/MM/YYYY HH:mm:ss')}\n⬡ *Members:* ${metadata.participants.length}\n\n────────────────────────\n\n`;
   }
-  client.sendMessage(m.chat, teks, m);
-}
+  client.sendMessage(from, { text: teks });}
 break;
 
 		      case 'tempmail': {
