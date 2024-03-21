@@ -609,11 +609,24 @@ client.sendMessage(m.chat, {
           // Group Commands
 break;
 
-		      case 'q': case 'quoted': {
-  if (!m.quoted) return m.reply('Reply to the message!');
-  let wokwol = await client.serializeM(await m.getQuotedObj());
-  if (!wokwol.quoted) return m.reply('The replied message does not contain a reply');
-  await wokwol.quoted.copyNForward(m.chat, true);
+		      case 'antiviewonce': {
+  if (!isCreator) throw mess.owner;
+    if (!args || args.length < 1) {
+        client.sendPoll(m.chat, "Choose Antiviewonce Setting:", [`${prefix}antiviewonce on`, `${prefix}antiviewonce off`]);
+    } else {
+        const antiviewonceSetting = args[0].toLowerCase();
+        if (antiviewonceSetting === "on") {
+            if (db.data.chats[m.chat]?.antiviewonce) return m.reply(`Antiviewonce Already Active`);
+            db.data.chats[m.chat].antiviewonce = true;
+            m.reply(`Antiviewonce Activated!`);
+        } else if (antiviewonceSetting === "off") {
+            if (!db.data.chats[m.chat]?.antiviewonce) return m.reply(`Antiviewonce Already Inactive`);
+            db.data.chats[m.chat].antiviewonce = false;
+            m.reply(`Antiviewonce Deactivated!`);
+        } else {
+            client.sendPoll(m.chat, "Choose Antiviewonce Setting:", [`${prefix}antiviewonce on`, `${prefix}antiviewonce off`]);
+        }
+    }
 }
 break;
 
