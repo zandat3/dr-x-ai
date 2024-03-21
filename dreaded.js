@@ -251,14 +251,6 @@ await client.sendMessage(from, {text: lod[i], edit: key });
 }
 }	 
 
-	   if (db.data.users[m.sender] && db.data.users[m.sender].afkTime > -1) {
-            let user = global.db.data.users[m.sender]
-            client.sendTextWithMentions(m.chat, `@${m.sender.split('@')[0]} stop AFK${user.afkReason ? ' setelah ' + user.afkReason : ''}
-during ${clockString(new Date - user.afkTime)}`)
-            user.afkTime = -1
-            user.afkReason = ''
-        }
-       
 	  
 	   async function load () {
 var lod = [
@@ -633,7 +625,7 @@ break;
   let teks = `⬣ *LIST GROUP CHAT*\n\nTotal Groups: ${anu.length} Groups\n\n`;
   for (let i of anu) {
     let metadata = await client.groupMetadata(i);
-    teks += `⬡ *Name:* ${metadata.subject}\n⬡ *Owner:* ${metadata.owner !== undefined ? '@' + metadata.owner.split`@`[0] : 'Unknown'}\n⬡ *ID:* ${metadata.id}\n⬡ *Created:* ${moment(metadata.creation * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}\n⬡ *Members:* ${metadata.participants.length}\n\n────────────────────────\n\n`;
+    teks += `⬡ *Name:* ${metadata.subject}\n⬡ *Owner:* ${metadata.owner !== undefined ? '@' + metadata.owner.split`@`[0] : 'Unknown'}\n⬡ *ID:* ${metadata.id}\n⬡ *Created:* ${moment(metadata.creation * 1000).tz('Africa/Nairobi').format('DD/MM/YYYY HH:mm:ss')}\n⬡ *Members:* ${metadata.participants.length}\n\n────────────────────────\n\n`;
   }
   client.sendTextWithMentions(m.chat, teks, m);
 }
