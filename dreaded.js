@@ -614,7 +614,8 @@ break;
         key: pingMsg.key,
         type: 14,
         editedMessage: {
-          m.reply(`*Pong:* ${new Date() - startTime} ms`);
+	} 
+		m.reply(`*Pong:* ${new Date() - startTime} ms`);
 	      
         }
       }
