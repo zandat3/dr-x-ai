@@ -1,4 +1,4 @@
-
+ 
 const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = require("@whiskeysockets/baileys");
 const fs = require("fs");
 const util = require("util");
@@ -605,6 +605,75 @@ client.sendMessage(m.chat, {
 }
           // Group Commands
 break;
+
+		      case 'tempmail': {
+        try {
+            const apiEndpoint = 'https://tempmail.apinepdev.workers.dev/api/gen';
+            
+            // Make a request to the API to generate a temporary email
+            const response = await fetch(apiEndpoint);
+            const data = await response.json();
+
+            if (!data || !data.email) {
+                await doReact("❌");
+                return m.reply("Failed to generate temporary email");
+            }
+
+            const generatedEmail = data.email;
+
+
+            return m.reply(`Generated Temporary Email: ${generatedEmail}`);
+        } catch (error) {
+            console.error('Error during API request:', error);
+            await doReact("❌");
+            return m.reply('Unexpected error occurred during the request.');
+        }
+    }
+    break;
+
+		      case 'getemailmessages': case 'checkmail': {
+        if (!text) {
+            await doReact("❌");
+            return m.reply(`*Provide me tempmail for view inbox*`);
+        }
+
+        const email = encodeURIComponent(text);
+        const apiEndpoint = `https://tempmail.apinepdev.workers.dev/api/getmessage?email=${email}`;
+
+        try {
+            const response = await fetch(apiEndpoint);
+
+            if (!response.ok) {
+                await doReact("❌");
+                return m.reply(`Invalid response from the API. Status code: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (!data || !data.messages) {
+                await doReact("❌");
+                return m.reply('Failed to retrieve email messages');
+            }
+
+            const messages = data.messages;
+
+            for (const message of messages) {
+                const sender = message.sender;
+                const subject = message.subject;
+                const date = new Date(JSON.parse(message.message).date).toLocaleString();
+                const messageBody = JSON.parse(message.message).body;
+
+                const replyMessage = `Sender: ${sender}\nSubject: ${subject}\nDate: ${date}\nMessage: ${messageBody}`;
+
+                await m.reply(replyMessage);
+            }
+        } catch (error) {
+            console.error('Error during API request:', error);
+            await doReact("❌");
+            return m.reply('Unexpected error occurred during the request.');
+        }
+    }
+    break;
 
 case 'apk': case 'app': case 'apkdl': {
  if (!text) throw `I need an apk name for download`;
