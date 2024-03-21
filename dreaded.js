@@ -617,7 +617,7 @@ let teks = `*「 Tag Admins 」*
 for (let mem of groupAdmin) {
 teks += ` @${mem.split('@')[0]}\n`
 }
-m.reply(m.chat, { text: teks, mentions: groupAdmin}, { quoted: fcontact})
+client.sendText(m.chat, { text: teks, mentions: groupAdmin}, { quoted: fcontact})
 }
 break;
 
