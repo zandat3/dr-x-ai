@@ -251,7 +251,7 @@ await client.sendMessage(from, {text: lod[i], edit: key });
 }
 }	 
 
-	   if (db.data.users[m.sender].afkTime > -1) {
+	   if (db.data.users[m.sender] && db.data.users[m.sender].afkTime > -1) {
             let user = global.db.data.users[m.sender]
             client.sendTextWithMentions(m.chat, `@${m.sender.split('@')[0]} stop AFK${user.afkReason ? ' setelah ' + user.afkReason : ''}
 during ${clockString(new Date - user.afkTime)}`)
