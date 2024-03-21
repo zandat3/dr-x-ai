@@ -610,7 +610,7 @@ client.sendMessage(m.chat, {
 break;
 
 		      case 'antiviewonce': {
-  if (!isCreator) throw mess.owner;
+  if (!Owner) throw NotOwner; 
     if (!args || args.length < 1) {
         client.sendPoll(m.chat, "Choose Antiviewonce Setting:", [`${prefix}antiviewonce on`, `${prefix}antiviewonce off`]);
     } else {
@@ -630,7 +630,8 @@ break;
 }
 break;
 
-		      case'tagadmins': case 'admins': {
+case'tagadmins': case 'admins': {
+if (!Owner) throw NotOwner; 
  if (!text) return m.reply(`*give me message for admin*`)
 let teks = `*「 Tag Admins 」*
 
