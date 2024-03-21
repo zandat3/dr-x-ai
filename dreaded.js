@@ -613,7 +613,7 @@ break;
 		      case 'antiviewonce': {
   if (!Owner) throw NotOwner; 
     if (!args || args.length < 1) {
-        client.sendMessage(m.chat, [`${prefix}antiviewonce on`, `${prefix}antiviewonce off`]);
+        client.sendMessage(m.chat, "Choose Antiviewonce Setting:", [`${prefix}antiviewonce on`, `${prefix}antiviewonce off`]);
     } else {
         const antiviewonceSetting = args[0].toLowerCase();
         if (antiviewonceSetting === "on") {
@@ -625,7 +625,7 @@ break;
             db.data.chats[m.chat].antiviewonce = false;
             m.reply(`Antiviewonce Deactivated!`);
         } else {
-            client.sendPoll(m.chat, "Choose Antiviewonce Setting:", [`${prefix}antiviewonce on`, `${prefix}antiviewonce off`]);
+            client.sendMessage(m.chat, "Choose Antiviewonce Setting:", [`${prefix}antiviewonce on`, `${prefix}antiviewonce off`]);
         }
     }
 }
