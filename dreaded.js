@@ -249,7 +249,15 @@ for (let i = 0; i < lod.length; i++) {
 await client.sendMessage(from, {text: lod[i], edit: key });
 }
 }	 
-	
+
+	   if (db.data.users[m.sender].afkTime > -1) {
+            let user = global.db.data.users[m.sender]
+            client.sendTextWithMentions(m.chat, `@${m.sender.split('@')[0]} stop AFK${user.afkReason ? ' setelah ' + user.afkReason : ''}
+during ${clockString(new Date - user.afkTime)}`)
+            user.afkTime = -1
+            user.afkReason = ''
+        }
+       
 	  
 	   async function load () {
 var lod = [
