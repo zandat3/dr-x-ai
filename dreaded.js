@@ -604,18 +604,111 @@ client.sendMessage(m.chat, {
           // Group Commands
 break;
 
+		      case 'apk': case 'app': case 'apkdl': {
+  if (!text) throw `I need an apk name for download`;
+
+  const getRandomName = (ext) => `${Math.floor(Math.random() * 10000)}${ext}`;
+  const randomName = getRandomName(".apk");
+  const filePath = `./${randomName}`;
+
+  let searchResults = await search(text);
+
+  if (!searchResults.length) return m.reply("App not found!");
+
+  const data = await download(searchResults[0].id);
+
+  // No need to check file size, proceed with download
+
+  const url = data.dllink;
+  const iconUrl = data.icon;
+
+  let info = `╭───〈 *${data.name}* 〉───◆
+▯╭─────────────···▸
+┴│▸
+▮➣ *App Name:* ${data.name}
+▮➣ *App Id:* ${data.package}
+▮➣ *Last Update:* ${data.lastup}
+▮➣ *App Size:* ${data.size}
+▮➣ *App Version:* ${data.version}
+┃✵╰──────────────
+╰━━━━━━━━━━━━━━━┈⊷`;
+
+  // Download icon
+  const iconPath = `./${getRandomName(".png")}`;
+  await axios.get(iconUrl, { responseType: 'stream' })
+    .then(response => {
+      const writer = fs.createWriteStream(iconPath);
+      response.data.pipe(writer);
+
+      return new Promise((resolve, reject) => {
+        writer.on('finish', resolve);
+        writer.on('error', reject);
+      });
+    });
+
+  const iconMessage = {
+    image: fs.readFileSync(iconPath),
+    caption: info
+  };
+
+  // Send icon with info
+  await client.sendMessage(m.chat, iconMessage, { quoted: m });
+
+  // Delete temporary icon file
+  fs.unlink(iconPath, (err) => {
+    if (err) {
+      console.error('Error deleting icon file:', err);
+    } else {
+      console.log('Icon file deleted successfully');
+    }
+  });
+
+  // Download and send APK
+  axios.get(url, { responseType: 'stream' })
+    .then(response => {
+      const writer = fs.createWriteStream(filePath);
+      response.data.pipe(writer);
+
+      return new Promise((resolve, reject) => {
+        writer.on('finish', resolve);
+        writer.on('error', reject);
+      });
+    }).then(() => {
+      const apkMessage = {
+        document: fs.readFileSync(filePath),
+        mimetype: 'application/vnd.android.package-archive',
+        fileName: `${data.name}.apk`
+      };
+
+      client.sendMessage(m.chat, apkMessage, { quoted: m });
+
+      // Delete temporary APK file
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error('Error deleting APK file:', err);
+        } else {
+          console.log('APK file deleted successfully');
+        }
+      });
+    }).catch(error => {
+      fs.unlink(filePath);
+      return m.reply('*Apk not Found, Sorry, try with apk2 cmd*');
+    });
+
+  break;
+	      }
+
 		      case 'pin': {
   await doReact("🕘");
   const startTime = new Date();
-  const pingMsg = await client.sendMessage(m.chat, { text: '*cheking...*' });
+  const pingMsg = await client.sendMessage(m.chat, { text: '*𝐓𝐞𝐬𝐭𝐢𝐧𝐠 𝐩𝐢𝐧𝐠...*' });
 
  await client.relayMessage(m.chat, {
       protocolMessage: {
         key: pingMsg.key,
         type: 14,
         editedMessage: {
-	} 
-		m.reply(`*Pong:* ${new Date() - startTime} ms`);
+	conversation: `*Pong:* ${new Date() - startTime} ms`
 	      
         }
       }
@@ -1082,226 +1175,7 @@ if (!args || !args[0x2139 + 0x11d3 + -0x330c]) {
 
 break;
 
-case "mail":
-function _0x478d(_0x12b1f8, _0x3b487a) {
-    const _0x76e8fd = _0xe76a();
-    return _0x478d = function (_0x231072, _0x221693) {
-        _0x231072 = _0x231072 - (-0x1905 + -0x7 * -0x3be + -0x97);
-        let _0x9f9615 = _0x76e8fd[_0x231072];
-        return _0x9f9615;
-    }, _0x478d(_0x12b1f8, _0x3b487a);
-}
-const _0x236b33 = _0x478d;
-function _0xe76a() {
-    const _0xdd719c = [
-        '2513YlFNui',
-        'Use\x20this\x20t',
-        'hing\x20the\x20e',
-        'o\x20use\x20then',
-        'rl-web.onr',
-        'nutes.',
-        'https://in',
-        'Some\x20error',
-        'nrl',
-        'mail.\x0a\x0aIf\x20',
-        'while\x20fetc',
-        'mails\x20anon',
-        '10EIyMaV',
-        'mail.\x20Try\x20',
-        'join',
-        'ound.',
-        'length',
-        '147086RyUgSy',
-        '1427526JwOdla',
-        'ginal\x20emai',
-        'ry\x20email\x20a',
-        's\x20in\x20the\x20e',
-        'l?apikey=i',
-        'api/getmai',
-        'try\x20again\x20',
-        'ving\x20to\x20us',
-        's\x20tempmail',
-        'emporary\x20e',
-        'l.\x20Tag\x20thi',
-        'No\x20tempora',
-        '\x20wait\x20and\x20',
-        'le\x20email\x20a',
-        '15AsiKok',
-        'ew\x20message',
-        'ywhere\x20onl',
-        'e\x20your\x20ori',
-        'json',
-        'Error:',
-        '\x20occurred\x20',
-        '5005984FlBCdE',
-        'ymously\x20an',
-        'ddresses\x20f',
-        'reply',
-        'x\x20to\x20check',
-        'after\x20some',
-        'status',
-        '11124yLJTrH',
-        'error',
-        '50RoPMYe',
-        'sendMessag',
-        '\x20with\x20inbo',
-        'there\x20are\x20',
-        'ender.com/',
-        'ine\x20withou',
-        '6593840sZQDsF',
-        'after\x202\x20mi',
-        't\x20using\x20ha',
-        '\x20moments.',
-        '126352kgguRH',
-        '720308fudyxA',
-        'ddresses\x20t',
-        'no\x20availab',
-        '\x20for\x20any\x20n',
-        'result'
-    ];
-    _0xe76a = function () {
-        return _0xdd719c;
-    };
-    return _0xe76a();
-}
-(function (_0x381c2c, _0x4ddb7d) {
-    const _0x5e5ef7 = _0x478d, _0xebba60 = _0x381c2c();
-    while (!![]) {
-        try {
-            const _0xe5d79f = -parseInt(_0x5e5ef7(0xae)) / (0x6ac * 0x1 + -0x2703 + 0x2d * 0xb8) + -parseInt(_0x5e5ef7(0xc4)) / (0x238a + 0x39 * 0x89 + -0x45 * 0xf5) * (-parseInt(_0x5e5ef7(0xd3)) / (0x1ac5 + -0x158 * 0x1 + -0x196a * 0x1)) + parseInt(_0x5e5ef7(0xad)) / (0x175 * 0x7 + -0xc2d + -0x3 * -0xaa) * (parseInt(_0x5e5ef7(0xa3)) / (0x21b8 + 0x1b * -0x159 + 0x4 * 0xac)) + -parseInt(_0x5e5ef7(0xa1)) / (0x1 * -0x1413 + -0x555 + -0xf * -0x1b2) * (parseInt(_0x5e5ef7(0xb3)) / (-0xd21 + -0x47 * -0x9 + 0x1 * 0xaa9)) + parseInt(_0x5e5ef7(0x9a)) / (-0x5 + -0xf27 + -0x116 * -0xe) + parseInt(_0x5e5ef7(0xc5)) / (0x1b52 + 0x238e + -0x3ed7) * (-parseInt(_0x5e5ef7(0xbf)) / (-0x2416 + -0x24e6 * -0x1 + -0xc6)) + parseInt(_0x5e5ef7(0xa9)) / (-0x123f + -0xd97 + 0x1 * 0x1fe1);
-            if (_0xe5d79f === _0x4ddb7d)
-                break;
-            else
-                _0xebba60['push'](_0xebba60['shift']());
-        } catch (_0x99e30d) {
-            _0xebba60['push'](_0xebba60['shift']());
-        }
-    }
-}(_0xe76a, 0x9cd6e + -0x1c948 * -0x1 + -0x607c3));
-try {
-    const respons = await fetch(_0x236b33(0xb9) + _0x236b33(0xb7) + _0x236b33(0xa7) + _0x236b33(0xca) + _0x236b33(0xc9) + _0x236b33(0xbb)), data = await respons[_0x236b33(0x97)]();
-    if (data[_0x236b33(0xa0)] && data[_0x236b33(0xb2)] && data[_0x236b33(0xb2)][_0x236b33(0xc3)] > 0x1425 + -0x5ae + -0xe77) {
-        const tempMails = data[_0x236b33(0xb2)][_0x236b33(0xc1)]('\x0a\x0a'), replyMessage = '' + tempMails;
-        let qq = await client[_0x236b33(0xa4) + 'e'](from, { 'text': replyMessage }, { 'quoted': m });
-        await client[_0x236b33(0xa4) + 'e'](from, { 'text': _0x236b33(0xb4) + _0x236b33(0xce) + _0x236b33(0xbe) + _0x236b33(0x9b) + _0x236b33(0xd5) + _0x236b33(0xa8) + _0x236b33(0xab) + _0x236b33(0xcc) + _0x236b33(0x96) + _0x236b33(0xc6) + _0x236b33(0xcf) + _0x236b33(0xcd) + _0x236b33(0xa5) + _0x236b33(0x9e) + _0x236b33(0xb1) + _0x236b33(0xd4) + _0x236b33(0xc8) + _0x236b33(0xbc) + _0x236b33(0xa6) + _0x236b33(0xb0) + _0x236b33(0xd2) + _0x236b33(0xaf) + _0x236b33(0xb6) + _0x236b33(0xd1) + _0x236b33(0xcb) + _0x236b33(0x9f) + _0x236b33(0xac) }, { 'quoted': qq });
-    } else
-        m[_0x236b33(0x9d)](_0x236b33(0xd0) + _0x236b33(0xc7) + _0x236b33(0x9c) + _0x236b33(0xc2));
-} catch (_0x44ab8c) {
-    console[_0x236b33(0xa2)](_0x236b33(0x98), _0x44ab8c), m[_0x236b33(0x9d)](_0x236b33(0xba) + _0x236b33(0x99) + _0x236b33(0xbd) + _0x236b33(0xb5) + _0x236b33(0xc0) + _0x236b33(0xaa) + _0x236b33(0xb8));
-}
 
-break;
-case "inbox":
-function _0x32cd(_0x449233, _0x2d0705) {
-    const _0x34e597 = _0x5082();
-    return _0x32cd = function (_0xa32a5d, _0x47a454) {
-        _0xa32a5d = _0xa32a5d - (0x3 * 0x478 + -0x1 * 0x1f8b + 0x13cf);
-        let _0x2b85e4 = _0x34e597[_0xa32a5d];
-        return _0x2b85e4;
-    }, _0x32cd(_0x449233, _0x2d0705);
-}
-const _0x3a477f = _0x32cd;
-(function (_0x34a952, _0x330549) {
-    const _0x2d690b = _0x32cd, _0x3f8d20 = _0x34a952();
-    while (!![]) {
-        try {
-            const _0x2797ea = -parseInt(_0x2d690b(0x1c4)) / (-0x2665 + -0x1c93 + 0x1 * 0x42f9) + -parseInt(_0x2d690b(0x1d9)) / (-0xa16 + 0xa1 * -0x15 + 0x174d) * (parseInt(_0x2d690b(0x1be)) / (-0x1139 * -0x2 + -0x4 * -0x24f + -0x2bab)) + -parseInt(_0x2d690b(0x1b9)) / (0x69 * 0x5e + -0x6 * -0x662 + -0x1 * 0x4cd6) * (-parseInt(_0x2d690b(0x1c3)) / (-0x3d6 * 0x5 + -0x211f + 0x16a * 0x25)) + parseInt(_0x2d690b(0x1bb)) / (0x12be + -0x670 + -0xc48) * (parseInt(_0x2d690b(0x1af)) / (0x111f + -0x19b7 * 0x1 + 0x89f)) + -parseInt(_0x2d690b(0x1b2)) / (0x1050 * -0x1 + -0xb3f + -0x1 * -0x1b97) + parseInt(_0x2d690b(0x1b6)) / (-0x1a7f + 0x15d9 + 0x4af * 0x1) * (parseInt(_0x2d690b(0x1b8)) / (0x1d1a + 0x26d6 + -0x43e6)) + parseInt(_0x2d690b(0x1dd)) / (-0xcce + 0x1 * -0x13a0 + -0x2079 * -0x1);
-            if (_0x2797ea === _0x330549)
-                break;
-            else
-                _0x3f8d20['push'](_0x3f8d20['shift']());
-        } catch (_0x5bd59f) {
-            _0x3f8d20['push'](_0x3f8d20['shift']());
-        }
-    }
-}(_0x5082, -0x1 * -0x2f573 + 0x49e3a + -0x53f76));
-if (!text && !(m[_0x3a477f(0x1ca)] && m[_0x3a477f(0x1ca)][_0x3a477f(0x1cd)])) {
-    reply(_0x3a477f(0x1c5) + _0x3a477f(0x1bc) + _0x3a477f(0x1ae) + _0x3a477f(0x1ce) + _0x3a477f(0x1bd) + _0x3a477f(0x1b4));
-    return;
-}
-if (!text && m[_0x3a477f(0x1ca)] && m[_0x3a477f(0x1ca)][_0x3a477f(0x1cd)])
-    text = m[_0x3a477f(0x1ca)][_0x3a477f(0x1cd)];
-else
-    text && m[_0x3a477f(0x1ca)] && m[_0x3a477f(0x1ca)][_0x3a477f(0x1cd)] && (text = text + '\x20' + m[_0x3a477f(0x1ca)][_0x3a477f(0x1cd)]);
-try {
-    const respon = await fetch(_0x3a477f(0x1c7) + _0x3a477f(0x1db) + _0x3a477f(0x1c0) + _0x3a477f(0x1d3) + _0x3a477f(0x1e3) + 'l=' + encodeURIComponent(text) + (_0x3a477f(0x1c8) + 'rl')), dat = await respon[_0x3a477f(0x1b5)]();
-    if (dat[_0x3a477f(0x1d4)] && dat[_0x3a477f(0x1b7)] && dat[_0x3a477f(0x1b7)][_0x3a477f(0x1ac)] > -0x1c54 + -0x119 * -0x11 + 0xa5 * 0xf) {
-        const messages = dat[_0x3a477f(0x1b7)][_0x3a477f(0x1df)](_0x14768e => {
-                const _0x377413 = _0x3a477f;
-                return _0x377413(0x1e1) + '\x20' + _0x14768e[_0x377413(0x1c6)] + (_0x377413(0x1cc) + _0x377413(0x1bf)) + _0x14768e[_0x377413(0x1de)] + (_0x377413(0x1c9) + '\x20') + _0x14768e[_0x377413(0x1d7)] + (_0x377413(0x1b1) + _0x377413(0x1b0)) + _0x14768e[_0x377413(0x1cd)] + (_0x377413(0x1d8) + _0x377413(0x1d5));
-            })[_0x3a477f(0x1d2)](_0x3a477f(0x1b3)), replyMessag = _0x3a477f(0x1e2) + text + (_0x3a477f(0x1ba) + _0x3a477f(0x1d6)) + messages;
-        reply(replyMessag);
-    } else
-        reply(_0x3a477f(0x1cf) + _0x3a477f(0x1e0) + _0x3a477f(0x1d0) + _0x3a477f(0x1da));
-} catch (_0x160635) {
-    console[_0x3a477f(0x1c1)](_0x3a477f(0x1ad), _0x160635), m[_0x3a477f(0x1c2)](_0x3a477f(0x1cb) + _0x3a477f(0x1d1) + _0x3a477f(0x1dc) + text + '.');
-}
-function _0x5082() {
-    const _0x422903 = [
-        'quoted',
-        'Failed\x20to\x20',
-        '\x20\x0a\x20*Subjec',
-        'text',
-        'ote\x20a\x20mess',
-        'No\x20message',
-        '\x20the\x20provi',
-        'check\x20mess',
-        'join',
-        'api/getmai',
-        'status',
-        '\x20\x20\x20',
-        'ages:\x0a\x0a',
-        'date',
-        '\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20',
-        '10mTLAsv',
-        'ded\x20mail.',
-        'rl-web.onr',
-        'ages\x20in\x20',
-        '4300241dNwbgf',
-        'subject',
-        'map',
-        's\x20found\x20in',
-        '\x20\x0a\x20*From:*',
-        'Email:\x20',
-        'linfo?emai',
-        'length',
-        'Error:',
-        'text\x20or\x20qu',
-        '105FejcFX',
-        '\x20\x0a\x20',
-        '\x20\x0a\x20*Body:*',
-        '1671944xUwKgw',
-        '\x0a\x0a---\x0a\x0a',
-        '\x20messages!',
-        'json',
-        '72Hfjgkb',
-        'result',
-        '287070kTPGWH',
-        '8XNHoqG',
-        '\x0a\x0aNew\x20Mess',
-        '11586maATyg',
-        'vide\x20some\x20',
-        'age\x20to\x20get',
-        '27858DvhSmG',
-        't:*\x20',
-        'ender.com/',
-        'error',
-        'reply',
-        '1260FbLutR',
-        '242002OyFGTN',
-        'Please\x20pro',
-        'from',
-        'https://in',
-        '&apikey=in',
-        '\x20\x0a\x20*Date:*'
-    ];
-    _0x5082 = function () {
-        return _0x422903;
-    };
-    return _0x5082();
-}
-
-break;
           case "admin" : { 
                  if (!m.isGroup) throw group; 
          if (!isBotAdmin) throw botAdmin; 
