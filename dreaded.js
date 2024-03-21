@@ -9,6 +9,7 @@ const Genius = require("genius-lyrics");
 const yts = require("yt-search");
 const advice = require("badadvice");
 const search = require('aptoide-scraper').search;
+const download = require('aptoide-scraper').download;
 const {c, cpp, node, python, java} = require('compile-run');
 const acrcloud = require("acrcloud");
 // const node = require("node-fetch-commonjs");
